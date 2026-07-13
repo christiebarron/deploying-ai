@@ -32,7 +32,7 @@ if collection.count() == 0:
         collection.add(documents=documents.tolist(), metadatas=metadatas, ids=ids)
 
 # ==========================================
-# TOOL DEFINITIONS[cite: 4]
+# TOOL DEFINITIONS
 # ==========================================
 tools = [
     {
@@ -94,7 +94,7 @@ tools = [
 ]
 
 # ==========================================
-# TOOL EXECUTION FUNCTIONS[cite: 4]
+# TOOL EXECUTION FUNCTIONS
 # ==========================================
 def execute_wikipedia_summary(topic: str) -> str:
     url = f"https://en.wikipedia.org/api/rest_v1/page/summary/{topic}"
@@ -138,7 +138,7 @@ def sanitize_history(history: list[dict]) -> list[dict]:
     return clean_history
 
 # ==========================================
-# MAIN CHAT FUNCTION[cite: 4]
+# MAIN CHAT FUNCTION
 # ==========================================
 def eval_chat(message: str, history: list[dict] = []) -> str:
     _logs.info(f'User message: {message}')
@@ -161,7 +161,7 @@ def eval_chat(message: str, history: list[dict] = []) -> str:
     
     conversation_input += response.output
 
-    # Handle function calls if any[cite: 4]
+    # Handle function calls if any
     for item in response.output:
         if item.type == "function_call":
             args = json.loads(item.arguments)
@@ -189,7 +189,7 @@ def eval_chat(message: str, history: list[dict] = []) -> str:
 
             conversation_input = conversation_input + [func_call_output]
             
-            # Make second API call with function result[cite: 4]
+            # Make second API call with function result
             response = client.responses.create(
                 model=open_ai_model,
                 instructions=instructions,
